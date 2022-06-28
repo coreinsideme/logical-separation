@@ -7,7 +7,7 @@ namespace LogicalSeparation.DAL
 {
     internal static class Configuration
     {
-        internal static void ConfigureDALServices(this ServiceCollection services)
+        internal static void ConfigureDALServices(this IServiceCollection services)
         {
             services
                 .AddSingleton<ICartRepository, CartRepository>();

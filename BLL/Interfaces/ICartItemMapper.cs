@@ -3,7 +3,7 @@ using LogicalSeparation.BLL.Dtos;
 
 namespace LogicalSeparation.BLL.Interfaces
 {
-    internal interface ICartItemMapper
+    public interface ICartItemMapper
     {
         CartItemDto MapToDto(CartItem item);
         CartItem MapToEntity(CartItemDto dto);

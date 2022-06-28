@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using NSwag.AspNetCore.Middlewares;
 
 using LogicalSeparation.BLL;
 using LogicalSeparation.BLL.Services;
 using LogicalSeparation.BLL.Interfaces;
-using LogicalSeparation.BLL.Dtos;
 
 
 namespace LogicalSeparation
@@ -13,22 +13,31 @@ namespace LogicalSeparation
     {
         static void Main(string[] args)
         {
-            var services = new ServiceCollection();
-            services.ConfigureBLLServices();
-            var cartService = services
-                .AddSingleton<ICartService, CartService>()
-                .BuildServiceProvider()
-                .GetService<ICartService>();
+            var builder = WebApplication.CreateBuilder(args);
 
-            // Do something with service
-   //         cartService.Create(1);
-   //         cartService.AddItem(1, new CartItemDto { Id = 1, Name = "Mug", Price = 5, Quantity = 1 });
-   //         var items = cartService.GetItems(1);
-			//foreach (var item in items)
-			//{
-   //             Console.Write($"Item: id: {item.Id}, name: {item.Name}, price: {item.Price}, quantity: {item.Quantity}, image: {item.Image}");
-   //         }
-   //         Console.ReadKey();
+            builder.Services.ConfigureBLLServices();
+
+            builder.Services
+                .AddSingleton<ICartService, CartService>();
+            
+            builder.Services.AddMvc();
+            builder.Services.AddControllers();
+            builder.Services.AddSwaggerDocument();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+            app.MapControllers();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+
+            app.Run();
         }
     }
 }

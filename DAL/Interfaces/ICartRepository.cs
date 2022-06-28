@@ -2,7 +2,7 @@
 
 namespace LogicalSeparation.DAL.Interfaces
 {
-    internal interface ICartRepository
+    public interface ICartRepository
     {
         Cart GetById(int cartId);
         void Update(Cart cart);

@@ -2,7 +2,7 @@
 
 namespace LogicalSeparation.BLL.Dtos
 {
-    internal class CartItemDto
+    public class CartItemDto
     {
         public int Id { get; set; }
 

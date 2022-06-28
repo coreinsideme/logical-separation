@@ -9,7 +9,7 @@ namespace LogicalSeparation.BLL
 {
     internal static class Configuration
     {
-        internal static void ConfigureBLLServices(this ServiceCollection services)
+        internal static void ConfigureBLLServices(this IServiceCollection services)
         {
             services
                 .AddSingleton<ICartService, CartService>()

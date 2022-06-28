@@ -5,9 +5,11 @@ using LogicalSeparation.BLL.Dtos;
 
 namespace LogicalSeparation.BLL.Interfaces
 {
-    internal interface ICartService
+    public interface ICartService
     {
         void Create(int id);
+
+        CartDto GetCart(int cartId);
 
         IReadOnlyCollection<CartItemDto> GetItems(int cartId);
 

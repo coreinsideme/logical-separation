@@ -8,7 +8,7 @@ using LogicalSeparation.BLL.Interfaces;
 
 namespace LogicalSeparation.BLL.Services
 {
-	internal class CartService: ICartService
+	public class CartService: ICartService
 	{
 		private readonly ICartRepository _cartRepository;
 		private readonly ICartMapper _cartMapper;
@@ -27,6 +27,11 @@ namespace LogicalSeparation.BLL.Services
 			_cartRepository.Save(cart);
 		}
 
+		public CartDto GetCart(int cartId)
+        {
+			return _cartMapper.MapToDto(_cartRepository.GetById(cartId));
+        }
+
 		public IReadOnlyCollection<CartItemDto> GetItems(int cartId)
 		{
 			var cart = _cartRepository.GetById(cartId);
@@ -40,7 +45,7 @@ namespace LogicalSeparation.BLL.Services
 		{
 			var cart = _cartRepository.GetById(cartId);
 
-			if (cart is null) { throw new ArgumentException("No cart with such Id"); }
+			if (cart is null) { Create(cartId); }
 
 			var itemToUpdate = cart?.Items.Find(i => i.Id == item.Id);
 
