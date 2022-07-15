@@ -1,4 +1,5 @@
-﻿using LogicalSeparation.DAL.Entities;
+﻿using System;
+using LogicalSeparation.DAL.Entities;
 
 namespace LogicalSeparation.DAL.Interfaces
 {
@@ -7,5 +8,6 @@ namespace LogicalSeparation.DAL.Interfaces
         Cart GetById(int cartId);
         void Update(Cart cart);
         void Save(Cart cart);
+        void UpdateItemsWithFunc(Func<CartItem, CartItem> updateFunc);
     }
 }

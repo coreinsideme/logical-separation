@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
+
 using LogicalSeparation.DAL.Entities;
 using LogicalSeparation.DAL.Interfaces;
 using LogicalSeparation.BLL.Dtos;
@@ -66,6 +67,17 @@ namespace LogicalSeparation.BLL.Services
 			cart.Items.RemoveAll(i => i.Id == itemId);
 
 			_cartRepository.Update(cart);
+		}
+
+		public void UpdateItemPrice(string itemName, decimal price)
+		{
+			_cartRepository.UpdateItemsWithFunc(UpdatePrice);
+
+			CartItem UpdatePrice(CartItem item)
+			{
+				if (item.Name == itemName) { item.Price = price; }
+				return item;
+			}
 		}
 	}
 }

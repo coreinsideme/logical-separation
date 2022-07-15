@@ -16,5 +16,7 @@ namespace LogicalSeparation.BLL.Interfaces
         void AddItem(int cartId, CartItemDto item);
 
         void RemoveItem(int cartId, int itemId);
+
+        void UpdateItemPrice(string itemName, decimal price);
     }
 }

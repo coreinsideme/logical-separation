@@ -5,7 +5,9 @@ using NSwag.AspNetCore.Middlewares;
 using LogicalSeparation.BLL;
 using LogicalSeparation.BLL.Services;
 using LogicalSeparation.BLL.Interfaces;
-
+using LogicalSeparation.Web.Interfaces;
+using LogicalSeparation.Web.Services;
+using LogicalSeparation.Web.Extensions;
 
 namespace LogicalSeparation
 {
@@ -18,7 +20,8 @@ namespace LogicalSeparation
             builder.Services.ConfigureBLLServices();
 
             builder.Services
-                .AddSingleton<ICartService, CartService>();
+                .AddSingleton<ICartService, CartService>()
+                .AddSingleton<IRabbitMQConsumer, PriceChangeConsumer>();
             
             builder.Services.AddMvc();
             builder.Services.AddControllers();
@@ -36,6 +39,8 @@ namespace LogicalSeparation
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
+
+            app.UseRabbitConsumer();
 
             app.Run();
         }

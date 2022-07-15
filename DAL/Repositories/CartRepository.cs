@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using LiteDB;
+using System.Collections.Generic;
+using System.Linq;
 
 using LogicalSeparation.DAL.Entities;
 using LogicalSeparation.DAL.Interfaces;
@@ -48,6 +50,17 @@ namespace LogicalSeparation.DAL.Repositories
 				}
 
 				carts.Insert(cart);
+			}
+		}
+
+		public void UpdateItemsWithFunc(Func<CartItem, CartItem> updateFunc)
+		{
+			using (var db = new LiteDatabase(_dbPath))
+			{
+				var carts = db.GetCollection<Cart>(_collectionName);
+				var dictionary = carts.FindAll().ToDictionary(c => c.Id, c => c.Items.Select(updateFunc).ToList());
+
+				carts.UpdateMany(cart => new Cart() { Items = dictionary.GetValueOrDefault(cart.Id) }, cart => dictionary.Keys.Contains(cart.Id));
 			}
 		}
 	}
