@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using NSwag.Annotations;
+using System.Collections.Generic;
 
 using LogicalSeparation.BLL.Dtos;
 using LogicalSeparation.BLL.Interfaces;
@@ -41,6 +41,12 @@ namespace LogicalSeparation.Web.Controllers.v2
         public IActionResult DeleteItem(int cartId, int itemId)
         {
             return RedirectToAction("DeleteItem", "CartsV2Controller", new { cartId, itemId }); ;
+        }
+
+        [HttpGet("fake/{id}")]
+        public IActionResult GetFakeAmount(int id)
+        {
+            return Ok(new { Id = id, Amount = 5 });
         }
     }
 }

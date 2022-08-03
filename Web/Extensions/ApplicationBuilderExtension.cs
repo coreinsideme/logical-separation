@@ -26,12 +26,12 @@ namespace LogicalSeparation.Web.Extensions
 
         private static void OnStarted()
         {
-            _consumer.Register();
+            //_consumer.Register();
         }
 
         private static void OnStopping()
         {
-            _consumer.Unregister();
+            //_consumer.Unregister();
         }
     }
 }
