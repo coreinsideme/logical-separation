@@ -8,6 +8,7 @@ using LogicalSeparation.BLL.Interfaces;
 using LogicalSeparation.Web.Interfaces;
 using LogicalSeparation.Web.Services;
 using LogicalSeparation.Web.Extensions;
+using LogicalSeparation.Web.Middlewares;
 
 namespace LogicalSeparation
 {
@@ -31,6 +32,7 @@ namespace LogicalSeparation
 
             // Configure the HTTP request pipeline.
 
+            app.UseMiddleware<CorrelationIdMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
